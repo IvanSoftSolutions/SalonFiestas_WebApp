@@ -1,9 +1,10 @@
 import React from 'react'
+import Hero from '../components/Hero'
 
-export default function Gallery() {
+const Gallery = () => {
     return (
-        <div>
-            hello from gallery
-        </div>
+        <Hero hero="roomsHero" />
     )
 }
+
+export default Gallery;
