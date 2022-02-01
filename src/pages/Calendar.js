@@ -3,7 +3,6 @@ import Hero from '../components/Hero'
 import Banner from '../components/Banner'
 import { Link, useNavigate } from 'react-router-dom'
 import Calendar from 'react-calendar'
-import { GiConsoleController } from 'react-icons/gi'
 
 export default function Calendario() {
     const [type, setType] = useState('null');
@@ -62,7 +61,9 @@ export default function Calendario() {
                 {renderOtherInput()}
             </div>
             <div className='btn-container'>
-                <button className='btn-secondary'>Reservar</button>
+                <Link to='/payment/' className='btn-secondary'>
+                    Reservar
+                </Link>
                 <Link to='/' className='btn-secondary'>
                     Cancelar
                 </Link>
