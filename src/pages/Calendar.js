@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import Hero from '../components/Hero'
 import Banner from '../components/Banner'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Modal from 'react-modal'
 import Calendar from 'react-calendar'
+
+Modal.setAppElement('#root');
 
 export default function Calendario() {
     const [type, setType] = useState('null');
     const [date, setDate] = useState();
+    const [modalIsOpen, setIsOpen] = useState(false);
 
     const handleType = (e) => {
         setType(e.target.value);
@@ -33,6 +37,14 @@ export default function Calendario() {
         type: type
     }
 
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     return (
         <>
             <Hero>
@@ -55,19 +67,33 @@ export default function Calendario() {
                     <option value="communion">Primera comunión</option>
                     <option value="other">Otro</option>
                 </select>
-                <p></p>
             </div>
             <div className='btn-container'>
                 {renderOtherInput()}
             </div>
             <div className='btn-container'>
-                <Link to='/payment/' className='btn-secondary'>
-                    Reservar
-                </Link>
+                <button className='btn-secondary' onClick={openModal}>Reservar</button>
                 <Link to='/' className='btn-secondary'>
                     Cancelar
                 </Link>
             </div>
+            <Modal
+                className='room-info'
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+            >
+                <h2>Hello</h2>
+                <button onClick={closeModal}>close</button>
+                <div>I am a modal</div>
+                <form>
+                    <input />
+                    <button>tab navigation</button>
+                    <button>stays</button>
+                    <button>inside</button>
+                    <button>the modal</button>
+                </form>
+            </Modal>
         </>
 
     )
