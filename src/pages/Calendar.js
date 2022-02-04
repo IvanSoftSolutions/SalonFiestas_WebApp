@@ -1,16 +1,33 @@
-import React, { useState } from 'react'
-import Hero from '../components/Hero'
-import Banner from '../components/Banner'
-import { Link } from 'react-router-dom'
-import Modal from 'react-modal'
-import Calendar from 'react-calendar'
+import React, { useState } from 'react';
+import Hero from '../components/Hero';
+import Banner from '../components/Banner';
+import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
+import Calendar from 'react-calendar';
+import { differenceInCalendarDays } from 'date-fns';
+
+import tmp1 from '../assets/tmp1.jpg';
 
 Modal.setAppElement('#root');
 
 export default function Calendario() {
     const [type, setType] = useState('null');
     const [date, setDate] = useState();
+    const [status, setStatus] = useState('null')
     const [modalIsOpen, setIsOpen] = useState(false);
+    // const dates = [new Date('Thu Feb 17 2022 00:00:00 GMT-0600'), new Date('Thu Feb 18 2022 00:00:00 GMT-0600'), new Date('Thu Feb 19 2022 00:00:00 GMT-0600')]
+
+    // function isSameDay(a, b) {
+    //     return differenceInCalendarDays(a, b) === 0;
+    // }
+
+    // function tileDisabled({ date, view }) {
+    //     // Disable tiles in month view only
+    //     if (view === 'month') {
+    //         // Check if a date React-Calendar wants to check is on the list of disabled dates
+    //         return dates.find(dDate => isSameDay(dDate, date));
+    //     }
+    // }
 
     const handleType = (e) => {
         setType(e.target.value);
@@ -18,6 +35,14 @@ export default function Calendario() {
 
     const handleDate = (e) => {
         setDate(e)
+    }
+
+    function handleStatus1() {
+        setStatus('Apartado');
+    }
+
+    function handleStatus2() {
+        setStatus('Pagado')
     }
 
     const renderOtherInput = () => {
@@ -34,7 +59,8 @@ export default function Calendario() {
 
     const data = {
         date: date,
-        type: type
+        type: type,
+        status: status,
     }
 
     function openModal() {
@@ -43,7 +69,10 @@ export default function Calendario() {
 
     function closeModal() {
         setIsOpen(false);
+        setStatus(null);
     }
+
+    console.log(status);
 
     return (
         <>
@@ -55,7 +84,7 @@ export default function Calendario() {
                 </Banner>
             </Hero>
             <div className="calendar-container">
-                <Calendar onChange={e => handleDate(e)} />
+                <Calendar onChange={e => handleDate(e)} /*tileDisabled={tileDisabled}*/ />
             </div>
             <div className="btn-container">
                 <label>Tipo de evento:</label>
@@ -67,8 +96,6 @@ export default function Calendario() {
                     <option value="communion">Primera comunión</option>
                     <option value="other">Otro</option>
                 </select>
-            </div>
-            <div className='btn-container'>
                 {renderOtherInput()}
             </div>
             <div className='btn-container'>
@@ -83,16 +110,17 @@ export default function Calendario() {
                 onRequestClose={closeModal}
                 contentLabel="Example Modal"
             >
-                <h2>Hello</h2>
-                <button onClick={closeModal}>close</button>
-                <div>I am a modal</div>
-                <form>
-                    <input />
-                    <button>tab navigation</button>
-                    <button>stays</button>
-                    <button>inside</button>
-                    <button>the modal</button>
-                </form>
+                <div style={{ display: 'flex' }}>
+                    <div>
+                        <img src={tmp1} alt="payment" style={{ width: '100%', padding: '5px' }} />
+                        <button onClick={handleStatus1}>Apartado</button>
+                    </div>
+                    <div>
+                        <img src={tmp1} alt="payment" style={{ width: '100%', padding: '5px' }} />
+                        <button onClick={handleStatus2}>Completo</button>
+                    </div>
+                </div>
+                <button onClick={closeModal}>Cancelar</button>
             </Modal>
         </>
 
