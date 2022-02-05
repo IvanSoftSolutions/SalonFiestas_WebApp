@@ -11,9 +11,10 @@ import tmp1 from '../assets/tmp1.jpg';
 Modal.setAppElement('#root');
 
 export default function Calendario() {
-    const [type, setType] = useState('null');
+    const [type, setType] = useState('birthday');
+    const [details, setDetails] = useState(null)
     const [date, setDate] = useState();
-    const [status, setStatus] = useState('null')
+    const [status, setStatus] = useState(null)
     const [modalIsOpen, setIsOpen] = useState(false);
     // const dates = [new Date('Thu Feb 17 2022 00:00:00 GMT-0600'), new Date('Thu Feb 18 2022 00:00:00 GMT-0600'), new Date('Thu Feb 19 2022 00:00:00 GMT-0600')]
 
@@ -31,6 +32,7 @@ export default function Calendario() {
 
     const handleType = (e) => {
         setType(e.target.value);
+        setDetails(null);
     }
 
     const handleDate = (e) => {
@@ -50,7 +52,7 @@ export default function Calendario() {
             return (
                 <>
                     <p>Por favor especifique:</p>
-                    <input type="text" />
+                    <input type="text" onChange={e => setDetails(e.target.value)} />
                 </>
             )
 
@@ -60,6 +62,7 @@ export default function Calendario() {
     const data = {
         date: date,
         type: type,
+        typeDetails: details,
         status: status,
     }
 
@@ -72,7 +75,7 @@ export default function Calendario() {
         setStatus(null);
     }
 
-    console.log(status);
+    console.log(data);
 
     return (
         <>
@@ -108,7 +111,7 @@ export default function Calendario() {
                 className='room-info'
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
-                contentLabel="Example Modal"
+                contentLabel="Payment Modal"
             >
                 <div style={{ display: 'flex' }}>
                     <div>
