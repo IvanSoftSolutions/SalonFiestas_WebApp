@@ -6,6 +6,11 @@ import Modal from 'react-modal/lib/components/Modal';
 export default function Login() {
     const [accOpen, setAccOpen] = useState(false);
     const [recOpen, setRecOpen] = useState(false);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [name, setName] = useState(null);
+    const [lastname, setLastName] = useState(null);
+    const [phone, setPhone] = useState(null);
 
     function openAcc() {
         setAccOpen(true);
@@ -23,6 +28,26 @@ export default function Login() {
         setRecOpen(false);
     }
 
+    function handleSubmit() {
+        const user = {
+            email: email,
+            password: password
+        }
+        console.log(user);
+    }
+
+    function handleNewUser() {
+        const userNew = {
+            name: name,
+            lastname: lastname,
+            phone: phone,
+            email: email,
+            password: password
+        }
+        setAccOpen(false);
+        console.log(userNew);
+    }
+
     return (
         <>
             <Hero>
@@ -31,13 +56,13 @@ export default function Login() {
                     </Banner>
                     <div className="btn-container" style={{ flexDirection: 'column', paddingTop: '0px' }}>
                         <div>
-                            <input type="text" placeholder='Email' className="btn-secondary" />
+                            <input type="text" placeholder='Email' className="btn-secondary" onChange={e => setEmail(e.target.value)} />
                         </div>
                         <div>
-                            <input type="text" placeholder='Contraseña' className="btn-secondary" />
+                            <input type="text" placeholder='Contraseña' className="btn-secondary" onChange={e => setPassword(e.target.value)} />
                         </div>
                         <div>
-                            <button className="btn-secondary">Iniciar</button>
+                            <button className="btn-secondary" onClick={handleSubmit}>Iniciar</button>
                         </div>
                         <div>
                             <button className='btn-secondary' onClick={openAcc}>Crear cuenta</button>
@@ -55,24 +80,24 @@ export default function Login() {
                 <div style={{ marginTop: '5rem', }}>
                     <div>
                         <div>
-                            <label htmlFor="name">Nombre <input type="text" /></label>
+                            <label htmlFor="name">Nombre <input type="text" onChange={e => setName(e.target.value)} /></label>
                         </div>
                         <div>
-                            <label htmlFor="lname">Apellido <input type="text" /></label>
+                            <label htmlFor="lname">Apellido <input type="text" onChange={e => setLastName(e.target.value)} /></label>
                         </div>
                         <div>
-                            <label htmlFor="phone">Telefono <input type="text" /></label>
+                            <label htmlFor="phone">Telefono <input type="text" onChange={e => setPhone(e.target.value)} /></label>
                         </div>
                         <div>
-                            <label htmlFor="email">Email <input type="text" /></label>
+                            <label htmlFor="email">Email <input type="text" onChange={e => setEmail(e.target.value)} /></label>
                         </div>
                         <div>
-                            <label htmlFor="password">Contraseña <input type="text" /></label>
+                            <label htmlFor="password">Contraseña <input type="text" onChange={e => setPassword(e.target.value)} /></label>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <button >Crear</button>
+                    <button onClick={handleNewUser}>Crear</button>
                     <button onClick={closeAcc}>Cancelar</button>
                 </div>
                 <div>
