@@ -3,10 +3,10 @@ import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import Payment from '../components/Payment';
 import Calendar from 'react-calendar';
 import { differenceInCalendarDays } from 'date-fns';
 
-import tmp1 from '../assets/tmp1.jpg';
 
 Modal.setAppElement('#root');
 
@@ -39,14 +39,6 @@ export default function Calendario() {
         setDate(e)
     }
 
-    function handleStatus1() {
-        setStatus('Apartado');
-    }
-
-    function handleStatus2() {
-        setStatus('Pagado')
-    }
-
     const renderOtherInput = () => {
         if (type === 'other') {
             return (
@@ -68,11 +60,6 @@ export default function Calendario() {
 
     function openModal() {
         setIsOpen(true);
-    }
-
-    function closeModal() {
-        setIsOpen(false);
-        setStatus(null);
     }
 
     console.log(data);
@@ -107,24 +94,7 @@ export default function Calendario() {
                     Cancelar
                 </Link>
             </div>
-            <Modal
-                className='room-info'
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                contentLabel="Payment Modal"
-            >
-                <div style={{ display: 'flex' }}>
-                    <div>
-                        <img src={tmp1} alt="payment" style={{ width: '100%', padding: '5px' }} />
-                        <button onClick={handleStatus1}>Apartado</button>
-                    </div>
-                    <div>
-                        <img src={tmp1} alt="payment" style={{ width: '100%', padding: '5px' }} />
-                        <button onClick={handleStatus2}>Completo</button>
-                    </div>
-                </div>
-                <button onClick={closeModal}>Cancelar</button>
-            </Modal>
+            <Payment openModal={modalIsOpen} onModalChange={setIsOpen} status={setStatus} />
         </>
 
     )

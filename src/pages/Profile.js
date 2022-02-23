@@ -1,8 +1,18 @@
 import React from 'react'
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
+import { useNavigate } from 'react-router-dom';
 
-export default function Profile() {
+export default function Profile({ onIsLoggedInChange }) {
+    const navigate = useNavigate();
+
+    function logout() {
+        localStorage.setItem('isLoggedIn', false);
+        onIsLoggedInChange(false);
+        navigate('/');
+
+    }
+
     return (
         <Hero>
             <div>
@@ -20,7 +30,7 @@ export default function Profile() {
 
                 </div>
                 <div className='btn-container'>
-                    <button>Logout</button>
+                    <button onClick={logout}>Logout</button>
                 </div>
             </div>
 
