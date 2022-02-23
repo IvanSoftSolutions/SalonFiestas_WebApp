@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import Modal from 'react-modal/lib/components/Modal';
+import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function Login({ onIsLoggedInChange }) {
     const [accOpen, setAccOpen] = useState(false);
     const [recOpen, setRecOpen] = useState(false);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [name, setName] = useState(null);
     const [lastname, setLastName] = useState(null);
     const [phone, setPhone] = useState(null);
+    const navigate = useNavigate();
 
     function openAcc() {
         setAccOpen(true);
@@ -33,7 +35,12 @@ export default function Login() {
             email: email,
             password: password
         }
-        console.log(user);
+        if (user.email !== '' && user.password !== '') {
+            onIsLoggedInChange(true);
+            localStorage.setItem('isLoggedIn', true);
+            navigate('/profile');
+        }
+        console.log(localStorage.getItem('isLoggedIn'));
     }
 
     function handleNewUser() {
@@ -62,7 +69,7 @@ export default function Login() {
                             <input type="text" placeholder='Contraseña' className="btn-secondary" onChange={e => setPassword(e.target.value)} />
                         </div>
                         <div>
-                            <button className="btn-secondary" onClick={handleSubmit}>Iniciar</button>
+                            <button className="btn-secondary" onClick={() => { handleSubmit() }}>Iniciar</button>
                         </div>
                         <div>
                             <button className='btn-secondary' onClick={openAcc}>Crear cuenta</button>
