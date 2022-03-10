@@ -10,7 +10,7 @@ import { differenceInCalendarDays } from 'date-fns';
 
 Modal.setAppElement('#root');
 
-export default function Calendario() {
+export default function Calendario({ isLoggedIn }) {
     const [type, setType] = useState('birthday');
     const [details, setDetails] = useState(null)
     const [date, setDate] = useState();
@@ -94,7 +94,7 @@ export default function Calendario() {
                     Cancelar
                 </Link>
             </div>
-            <Payment openModal={modalIsOpen} onModalChange={setIsOpen} status={setStatus} />
+            <Payment isLoggedIn={isLoggedIn} openModal={modalIsOpen} onModalChange={setIsOpen} status={setStatus} />
         </>
 
     )

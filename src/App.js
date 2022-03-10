@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/gallery/" element={<Gallery />} />
-        <Route exact path="/calendar/" element={<Calendario />} />
+        <Route exact path="/calendar/" element={<Calendario isLoggedIn={isLoggedIn} />} />
         <Route exact path="/login/" element={<Login onIsLoggedInChange={setIsLoggedIn} />} />
         <Route exact path="/profile/" element={<Profile onIsLoggedInChange={setIsLoggedIn} />} />
 

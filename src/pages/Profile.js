@@ -9,6 +9,12 @@ export default function Profile({ onIsLoggedInChange }) {
     const navigate = useNavigate();
     const [status, setStatus] = useState('Apartado')
     const [modalIsOpen, setIsOpen] = useState(false);
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    var nombre = userData.nombre + ' ' + userData.apellido;
+
+    function getDates() {
+
+    }
 
     const data = React.useMemo(
         () => [
@@ -70,11 +76,14 @@ export default function Profile({ onIsLoggedInChange }) {
         setIsOpen(true);
     }
 
+    console.log(userData);
+
     return (
         <>
             <Hero>
                 <div>
-                    <Banner title='Nombre' subtitle='Email'>
+                    <Banner title='Events' subtitle={nombre}>
+                        <h6>{userData.correo}</h6>
                     </Banner>
                     <div className='btn-container'>
                         <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>

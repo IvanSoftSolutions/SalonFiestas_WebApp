@@ -1,16 +1,20 @@
 import React from 'react';
 import Modal from 'react-modal/lib/components/Modal';
+import { useNavigate } from 'react-router-dom'
 import tmp1 from '../assets/tmp1.jpg';
 
 
 export default function Payment({ openModal, onModalChange, status, onStatusChange }) {
+    const navigate = useNavigate();
 
     function handleStatus1() {
         status('Apartado');
+        navigate('/profile');
     }
 
     function handleStatus2() {
-        status('Pagado')
+        status('Pagado');
+        navigate('/profile');
     }
 
     function checkStatus() {

@@ -4,6 +4,8 @@ import Banner from '../components/Banner';
 import Modal from 'react-modal/lib/components/Modal';
 import { useNavigate } from 'react-router-dom';
 
+import UserServices from '../services/Usuarios'
+
 export default function Login({ onIsLoggedInChange }) {
     const [accOpen, setAccOpen] = useState(false);
     const [recOpen, setRecOpen] = useState(false);
@@ -38,7 +40,7 @@ export default function Login({ onIsLoggedInChange }) {
         if (user.email !== '' && user.password !== '') {
             onIsLoggedInChange(true);
             localStorage.setItem('isLoggedIn', true);
-            navigate('/profile');
+            login(user);
         }
         console.log(localStorage.getItem('isLoggedIn'));
     }
@@ -53,6 +55,16 @@ export default function Login({ onIsLoggedInChange }) {
         }
         setAccOpen(false);
         console.log(userNew);
+    }
+
+    function login(data) {
+        UserServices.login(data).then(response => {
+            if (response.status === 200) {
+                console.log(response.data);
+                localStorage.setItem('userData', JSON.stringify(response.data));
+                navigate('/profile');
+            }
+        })
     }
 
     return (
